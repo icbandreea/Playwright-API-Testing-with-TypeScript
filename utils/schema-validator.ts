@@ -50,6 +50,10 @@ async function loadSchema(schemaPath:string) {
 async function generateNewSchema(responseBody:object, schemaPath: string) {
             try {
             const generatedSchema = createSchema(responseBody);
+            
+            // Add date-time format to createdAt and updatedAt properties
+            addDateTimeFormat(generatedSchema);
+            
             await fs.mkdir(path.dirname(schemaPath), {recursive: true});
             await fs.writeFile(schemaPath, JSON.stringify(generatedSchema, null, 4));
             
@@ -59,6 +63,27 @@ async function generateNewSchema(responseBody:object, schemaPath: string) {
             }
             throw new Error('Failed to create the schema file: Unknown error');
         }
+}
+
+function addDateTimeFormat(schema: any): void {
+    if (typeof schema !== 'object' || schema === null) {
+        return;
+    }
+    
+    if (schema.properties) {
+        for (const key in schema.properties) {
+            if ((key === 'createdAt' || key === 'updatedAt') && schema.properties[key].type === 'string') {
+                schema.properties[key].format = 'date-time';
+            }
+            // Recursively process nested properties
+            addDateTimeFormat(schema.properties[key]);
+        }
+    }
+    
+    // Handle array items
+    if (schema.items) {
+        addDateTimeFormat(schema.items);
+    }
 }
 
 

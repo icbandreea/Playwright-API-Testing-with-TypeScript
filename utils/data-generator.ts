@@ -1,4 +1,4 @@
-import articleRequestPayload from '../request-objects/POST-article.json';
+import articleRequestPayload from '../request-objects/POST-article.json' with { type: 'json' };
 import {faker} from '@faker-js/faker';
 
 export function getNewRandomArticle() {

@@ -1,23 +1,11 @@
 {
     "type": "object",
     "properties": {
-        "article": {
+        "comment": {
             "type": "object",
             "properties": {
-                "slug": {
-                    "type": "string"
-                },
-                "title": {
-                    "type": "string"
-                },
-                "description": {
-                    "type": "string"
-                },
-                "body": {
-                    "type": "string"
-                },
-                "tagList": {
-                    "type": "array"
+                "id": {
+                    "type": "integer"
                 },
                 "createdAt": {
                     "type": "string",
@@ -27,11 +15,8 @@
                     "type": "string",
                     "format": "date-time"
                 },
-                "favorited": {
-                    "type": "boolean"
-                },
-                "favoritesCount": {
-                    "type": "integer"
+                "body": {
+                    "type": "string"
                 },
                 "author": {
                     "type": "object",
@@ -58,20 +43,15 @@
                 }
             },
             "required": [
-                "slug",
-                "title",
-                "description",
-                "body",
-                "tagList",
+                "id",
                 "createdAt",
                 "updatedAt",
-                "favorited",
-                "favoritesCount",
+                "body",
                 "author"
             ]
         }
     },
     "required": [
-        "article"
+        "comment"
     ]
 }
